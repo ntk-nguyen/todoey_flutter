@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle;
     return Container(
       padding: EdgeInsets.all(20.0),
       color: Color(0xFF757575),
@@ -31,6 +34,9 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               textAlign: TextAlign.center,
               autofocus: true,
+              onChanged: (newText) {
+                newTaskTitle = newText;
+              },
             ),
             FlatButton(
               child: Text(
@@ -46,7 +52,8 @@ class AddTaskScreen extends StatelessWidget {
               disabledColor: Colors.grey,
               disabledTextColor: Colors.black,
               onPressed: (){
-
+                Provider.of<TaskData>(context).addTask(newTaskTitle);
+                Navigator.pop(context);
               },
             ),
           ],
